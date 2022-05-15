@@ -86,10 +86,20 @@ regressor.compile(optimizer='adam', loss = 'mean_squared_error')
 regressor.fit(x_train, y_train, epochs=100, batch_size=32)
 
 
-
-
+###########################################################################################
 #Part 3 - Making the predictions and visualising the results
+#Getting the real stock price of 2017
+#Same the training set
+dataset_test = pd.read_csv('Google_stock_Price_Test.csv') #Importing csv file
+real_stock_price = dataset_test.iloc[:,1:2].values             #Make Numpt array - .values (index 1)
+print(type(dataset_test))
+print(real_stock_price)
 
+#getting the predicted stock price of 2017
+
+
+
+#vicualising the results
 
 
 
