@@ -62,20 +62,49 @@ regressor = Sequential()                #연속된 값을 예측하기 위해 �
 #장단기 메모리 층을 추가
 regressor.add(LSTM(units= 50, return_sequences=True, input_shape = (x_train.shape[1],1)))       #장단기 메모리의 수, 변환순서,IMYPUT.SHAPE)
 regressor.add(Dropout(0.2))
-
+print(regressor)
+# Adding a second LSTM layer and some Dropout regularisation
+regressor.add(LSTM(units= 50, return_sequences=True))       # input없음 / 위에서 Unit이 자동으로 인식되므로, 지정할 필요 없음
+regressor.add(Dropout(0.2))
+# Adding a third LSTM layer and some Dropout regularisation
+regressor.add(LSTM(units= 50, return_sequences=True))       # Same a second layer
+regressor.add(Dropout(0.2))
+# Adding a fourth LSTM layer and some Dropout regularisation
+regressor.add(LSTM(units= 50))        # 더 이상 순서를 되돌아가지않기 때문에 False로 변경
+regressor.add(Dropout(0.2))
 print(regressor)
 
+#Adding the ouput layer
+regressor.add(Dense(units=1))
 
-#Dropout regularisation
+# Compiling the RNN
+# 최적화기 및 손실함수를 사용하기
+ #kera에서 일반적으로 {RMS_prop_optimizer}를 추천함 /회귀분석이므로 평균제곱손실함수 사용함
+regressor.compile(optimizer='adam', loss = 'mean_squared_error') 
 
-
-
-
-
-
+#Fitting the RNN to the Training Set
+regressor.fit(x_train, y_train, epochs=100, batch_size=32)
 
 
 
 
 #Part 3 - Making the predictions and visualising the results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
