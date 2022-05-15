@@ -40,21 +40,41 @@ for i in range(60, 1258) :
 x_train, y_train = np.array(x_train), np.array(y_train) #Keras에 넣어야 하므로 array로 재설정
 print(x_train)
 print(y_train)
-# Reshaping     # 데이터 전처리 마지막 단계 / 차원 추가
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Reshaping     # 데이터 전처리 마지막 단계 / 차원 추가 // 
+#data 예측에 필요한 자원이 있다면 추가로 넣는 단계
+#numpy 배열에 차원 추가랑 동일함
+x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1],1)) # 자세한 내용은 keras 활용 // (행,열,)
+print(x_train)
+############################################################################################
 #Part 2 - Building the RNN
+#과적합을 피하기 위해 드롭아웃 정규화 진행 예정
+#importing the Keras Libraries and pachages
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
+
+# imtialising the RNN
+regressor = Sequential()                #연속된 값을 예측하기 위해 회귀분석을 이용
+
+# Adding the first LSTM layer and some Dropout regularisation
+#과적합을 피하기 위해 Dropout 진행
+#장단기 메모리 층을 추가
+regressor.add(LSTM(units= 50, return_sequences=True, input_shape = (x_train.shape[1],1)))       #장단기 메모리의 수, 변환순서,IMYPUT.SHAPE)
+regressor.add(Dropout(0.2))
+
+print(regressor)
+
+
+#Dropout regularisation
+
+
+
+
+
+
+
+
 
 
 #Part 3 - Making the predictions and visualising the results
