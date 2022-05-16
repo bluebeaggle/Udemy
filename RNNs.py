@@ -4,6 +4,7 @@
 #Part1 - Data Preprocessing
 
 #Importing the Libraries
+from turtle import color
 import numpy as np
 import  matplotlib.pyplot as plt
 import pandas as pd
@@ -83,7 +84,7 @@ regressor.add(Dense(units=1))
 regressor.compile(optimizer='adam', loss = 'mean_squared_error') 
 
 #Fitting the RNN to the Training Set
-regressor.fit(x_train, y_train, epochs=100, batch_size=32)
+regressor.fit(x_train, y_train, epochs=150, batch_size=32)
 
 
 ###########################################################################################
@@ -96,11 +97,27 @@ print(type(dataset_test))
 print(real_stock_price)
 
 #getting the predicted stock price of 2017
+dataset_total = pd.concat((dataset_train['Open'],dataset_test['Open']),axis = 0)
+inputs = dataset_total[len(dataset_total)-len(dataset_test)-60:].values
+inputs = inputs.reshape(-1,1)
+inputs = sc.transform(inputs)
+X_test = []
+# January stock
+for i in range(60, 80) :
+    X_test.append(inputs[i-60:i, 0])  #[범위, 열의 번호]
+X_test = np.array(X_test)
+X_test = np.reshape(X_test, (X_test.shape[0],X_test.shape[1],1)) # 자세한 내용은 keras 활용 // (행,열,)
+predicted_stock_price = regressor.predict(X_test)
+predicted_stock_price = sc.inverse_transform(predicted_stock_price)
 
-
-
-#vicualising the results
-
+# Visualising the results
+plt.plot(real_stock_price, color= 'red', label = 'Real Google Stock Price')
+plt.plot(predicted_stock_price, color= 'blue', label = 'Predicted Google Stock Price')
+plt.title('Google Stock Price Prediction')
+plt.xlabel('Time')
+plt.ylabel('Google Stock Price')
+plt.legend()
+plt.show()
 
 
 
