@@ -35,6 +35,19 @@ ratings = pd.read_csv(r'C:\Users\Daeheon\Desktop\Daeheon\PRO\All of  DeepLearnin
 
 
 
+# Getting the number of users and movies
+
+# Converting the data into an array with users in lines and movies in columns
+
+# Converting the data into Torch tensors
+
+# Converting the ratings into binary ratings 1 (Liked) or 0 (Not Liked)
+
+# Creating the architecture of the Neural Network
+
+# Training the RBM
+
+# Testing the RBM
 
 
 
